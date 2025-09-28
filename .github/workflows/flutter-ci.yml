@@ -2,7 +2,6 @@ name: Flutter CI (APK & Web Pages)
 
 on:
   push:
-    branches: [ main ]
     tags:
       - 'v*'      # contoh: v1.2.3
       - '[0-9]*'  # juga dukung tag tanpa 'v', mis. 1.2.3
@@ -91,7 +90,6 @@ jobs:
   # =========================
   web-pages:
     name: Build Flutter Web & Deploy to Pages
-    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
