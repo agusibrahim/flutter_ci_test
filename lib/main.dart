@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_autodeploy_test/page2.dart';
 
 void main() {
   runApp(const MainApp());
@@ -210,10 +211,7 @@ class _MyWidgetState extends State<MyWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){
-        setState(() {
-          //todo
-          name="Bagus";
-        });
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>CustomPageViewApp()));
       },child: Icon(Icons.share)),
     );
   }

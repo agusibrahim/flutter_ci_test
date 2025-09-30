@@ -35,8 +35,8 @@ jobs:
       - name: Resolve version from tag
         id: ver
         run: |
-          RAW="${GITHUB_REF_NAME}"                    # e.g. v1.2.3 atau 1.2.3
-          VER="$(printf "%s" "$RAW" | sed -E 's/^[vV]//')"   # strip v/V
+          RAW="${GITHUB_REF_NAME}"
+          VER="$(printf "%s" "$RAW" | sed -E 's/^[vV]//')"
           echo "version=$VER" >> "$GITHUB_OUTPUT"
           echo "build_number=${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
           echo "Resolved version: $VER (build ${GITHUB_RUN_NUMBER})"
@@ -63,12 +63,6 @@ jobs:
           mkdir -p dist
           cp build/app/outputs/flutter-apk/app-release.apk \
              "dist/app-release-${{ steps.ver.outputs.version }}.apk"
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-${{ steps.ver.outputs.version }}.apk
-          path: dist/app-release-${{ steps.ver.outputs.version }}.apk
 
       - name: Create GitHub Release & Upload APK
         uses: softprops/action-gh-release@v1
@@ -101,11 +95,6 @@ jobs:
       - name: Build Flutter Web
         run: |
           flutter build web --release --wasm --base-href "/${{ github.event.repository.name }}/"
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build/web
 
       - name: Deploy to GitHub Pages
         id: deployment
