@@ -95,6 +95,11 @@ jobs:
       - name: Build Flutter Web
         run: |
           flutter build web --release --wasm --base-href "/${{ github.event.repository.name }}/"
+      
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
 
       - name: Deploy to GitHub Pages
         id: deployment
